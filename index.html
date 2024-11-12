@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор массы PLA-пластика</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Калькулятор массы PLA-пластика</h1>
+    <label for="length">Длина прутка (мм):</label>
+    <input type="number" id="length" placeholder="Введите длину в мм">
+    
+    <label for="diameter">Диаметр прутка (мм):</label>
+    <input type="number" id="diameter" value="1.75" placeholder="Введите диаметр в мм">
+    
+    <label for="volume">Объем (мм³):</label>
+    <input type="number" id="volume" placeholder="Введите объем в мм³">
+    
+    <button onclick="calculateMass()">Рассчитать массу</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateMass() {
+        const densityPLA = 0.00125;  // Плотность PLA в г/мм³
+        const length = parseFloat(document.getElementById('length').value) || 0;
+        const diameter = parseFloat(document.getElementById('diameter').value) || 1.75;
+        const volumeInput = parseFloat(document.getElementById('volume').value) || 0;
+
+        // Если указан объем, используем его, иначе рассчитываем объем по длине и диаметру
+        let volume = volumeInput > 0 ? volumeInput : Math.PI * Math.pow(diameter / 2, 2) * length;
+
+        // Масса = объем * плотность
+        const mass = volume * densityPLA;
+
+        // Отображаем результат
+        document.getElementById('result').innerText = `Масса PLA: ${mass.toFixed(2)} грамм`;
+    }
+</script>
+
+</body>
+</html>
